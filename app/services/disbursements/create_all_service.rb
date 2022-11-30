@@ -16,7 +16,7 @@ module Disbursements
 
     def create_for_all_orders
       current_date = first_date
-      while today >= current_date
+      while last_date >= current_date
         create_for_date(current_date)
         current_date += 7.days
       end
@@ -29,16 +29,16 @@ module Disbursements
     end
 
     def merchant_ids
-      @merchant_ids ||= Order.pluck("distinct merchant_id")
-    end
-
-    def today
-      @today ||= Date.today
+      @merchant_ids ||= Merchant.pluck("id")
     end
 
     def first_date
       @first_date ||= Order.where.not(completed_at: nil)
                            .order(:completed_at).first.completed_at.beginning_of_week
+    end
+
+    def last_date
+      @last_date ||= Order.where.not(completed_at: nil).order(:completed_at).last.completed_at
     end
   end
 end

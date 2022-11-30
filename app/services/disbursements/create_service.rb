@@ -1,8 +1,10 @@
 module Disbursements
   class CreateService
-    FEE_HIGHER_300 = 0.0085
-    FEE_HIGHER_50 = 0.0095
+    FEE_HIGHER_HIGH = 0.0085
+    FEE_HIGHER_MIDDLE = 0.0095
     FEE_DEFAULT = 0.01
+    THRESHOLD_HIGH = 300_00
+    THRESHOLD_MIDDLE = 50_00
 
     def initialize(merchant_id, year, week)
       @merchant_id = merchant_id
@@ -32,10 +34,10 @@ module Disbursements
     end
 
     def calc_fee(order)
-      percentage = if order.amount_cents > 300_00
-                     FEE_HIGHER_300
-                   elsif order.amount_cents > 50_00
-                     FEE_HIGHER_50
+      percentage = if order.amount_cents > THRESHOLD_HIGH
+                     FEE_HIGHER_HIGH
+                   elsif order.amount_cents > THRESHOLD_MIDDLE
+                     FEE_HIGHER_MIDDLE
                    else
                      FEE_DEFAULT
                    end

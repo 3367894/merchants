@@ -7,6 +7,13 @@ Style/StringLiterals:
 Style/Documentation:
     Enabled: false
 
+Metrics/BlockLength:
+    Exclude:
+        - spec/**/*
+
+Style/HashSyntax:
+    EnforcedShorthandSyntax: either
+
 AllCops:
     Exclude:
         - 'db/schema.rb'

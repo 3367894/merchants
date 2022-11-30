@@ -37,7 +37,7 @@ describe Disbursements::CreateService do
       it "replace existing disbursement" do
         disbursement = create(:disbursement, merchant_id: merchant.id, year: year, week: week)
 
-        expect { subject.call }.not_to change { Disbursement.count }
+        expect { subject.call }.not_to(change { Disbursement.count })
 
         expect(disbursement.reload.merchant_id).to eq(merchant.id)
         expect(disbursement.year).to eq(year)
@@ -56,7 +56,7 @@ describe Disbursements::CreateService do
 
     context "without orders" do
       it "doesn't create disbursement" do
-        expect { subject.call }.not_to change { Disbursement.count }
+        expect { subject.call }.not_to(change { Disbursement.count })
       end
     end
   end

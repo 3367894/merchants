@@ -15,3 +15,4 @@ path = Rails.root.join("db", "seeds_data")
   end
 end
 
+Disbursements::CreateAllService.new.call
